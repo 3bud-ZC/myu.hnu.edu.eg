@@ -6,13 +6,11 @@ on:
       - main
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: 'pages'
   cancel-in-progress: true
@@ -36,7 +34,13 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload artifact
+      - name: Deploy to gh-pages branch (Automatic fallback)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+      - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
@@ -50,4 +54,5 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v4
