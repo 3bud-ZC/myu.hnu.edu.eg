@@ -21,13 +21,6 @@ export const ACADEMIC_LEVELS = [
 
 export const STUDENT_TERMS: TermRecord[] = [
   {
-    id: 'term-fall-2026',
-    term: 'FALL',
-    year: '2026 / 2027',
-    status: 'Grades Not Posted',
-    courses: [],
-  },
-  {
     id: 'term-spring-2025',
     term: 'SPRING',
     year: '2025 / 2026',
