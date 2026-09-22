@@ -19,7 +19,7 @@ export const ACADEMIC_LEVELS = [
   { level: 4, name: 'Fourth Year (Senior)', creditHours: '102+ hours' },
 ];
 
-export const DEMO_TERMS: TermRecord[] = [
+export const STUDENT_TERMS: TermRecord[] = [
   {
     id: 'term-fall-2026',
     term: 'FALL',
@@ -46,18 +46,18 @@ export const DEMO_TERMS: TermRecord[] = [
         code: 'THS115',
         name: 'Electronic circuits & devices',
         creditHours: 3,
-        marks: 68.0,
+        marks: 69.0,
         grade: 'C+',
-        points: 2.3,
+        points: 2.4,
         status: 'Pass',
       },
       {
         code: 'THS116',
         name: 'General anatomy & histology for technologists',
         creditHours: 3,
-        marks: 72.0,
+        marks: 74.0,
         grade: 'B-',
-        points: 2.4, // 2.4 * 3 = 7.2 quality points
+        points: 2.7,
         status: 'Pass',
       },
       {
@@ -78,44 +78,38 @@ export const DEMO_TERMS: TermRecord[] = [
         points: 0.0,
         status: 'Fail',
       },
-    ],
-  },
-  {
-    id: 'term-fall-2025',
-    term: 'FALL',
-    year: '2025 / 2026',
-    status: 'Posted',
-    courses: [
       {
-        code: 'ENG101',
-        name: 'English for Medical Purposes',
+        code: 'THS119',
+        name: 'General Chemistry',
         creditHours: 2,
-        marks: 82.0,
-        grade: 'B+',
-        points: 3.3, // 6.6 quality points
+        marks: 72.0,
+        grade: 'B-',
+        points: 2.7,
         status: 'Pass',
       },
       {
-        code: 'COMP101',
-        name: 'Computer Applications in Healthcare',
+        code: 'UN114',
+        name: 'Academic reading & writing (2)',
         creditHours: 2,
         marks: 77.0,
         grade: 'B',
-        points: 3.0, // 6.0 quality points
+        points: 3.0,
         status: 'Pass',
       },
       {
-        code: 'BIO101',
-        name: 'Introduction to Health Technologies',
+        code: 'UN30',
+        name: 'Social Issues',
         creditHours: 2,
         marks: 78.0,
         grade: 'B',
-        points: 3.0, // 6.0 quality points
+        points: 3.0,
         status: 'Pass',
       },
     ],
   },
 ];
+
+export const DEMO_TERMS = STUDENT_TERMS;
 
 /**
  * Calculates GPA and summaries strictly from the local course data.
@@ -183,10 +177,10 @@ export function calculateAcademicSummary(terms: TermRecord[]): {
 
   return {
     summary: {
-      cumulativeGpa, // Target ~2.10 (35.7 / 17 = 2.10)
+      cumulativeGpa,
       gradeLetter,
-      earnedHours: totalEarnedHours, // 13 hrs (6 from Fall + 7 from Spring)
-      attemptedHours: totalAttemptedGpaHours, // 17 hrs
+      earnedHours: totalEarnedHours,
+      attemptedHours: totalAttemptedGpaHours,
       level,
       totalQualityPoints,
     },
@@ -194,4 +188,4 @@ export function calculateAcademicSummary(terms: TermRecord[]): {
   };
 }
 
-export const ACADEMIC_DATA = calculateAcademicSummary(DEMO_TERMS);
+export const ACADEMIC_DATA = calculateAcademicSummary(STUDENT_TERMS);
