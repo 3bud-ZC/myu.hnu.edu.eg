@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Ban, Edit3, X, AlertCircle, Calendar } from 'lucide-react';
 import { DEMO_STUDENT } from '../data/student';
 import { ACADEMIC_DATA } from '../data/transcript';
-import { UnofficialDemoBadge } from '../components/Layout/UnofficialDemoBadge';
 
 const TIME_SLOTS = [
   '08:00 AM',
@@ -26,9 +25,6 @@ export const RegistrationPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top Banner Notice */}
-      <UnofficialDemoBadge variant="banner" />
-
       {/* Red Warning Banner (Matches Screenshot_3.png) */}
       <div className="bg-red-50 border border-red-200/90 rounded-2xl p-4 flex items-center gap-3 text-sm text-red-700 shadow-xs">
         <Ban className="w-5 h-5 text-red-600 shrink-0" />

@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { User, GraduationCap, Lock, KeyRound, CheckCircle2, AlertCircle, X, Shield } from 'lucide-react';
 import { DEMO_STUDENT } from '../data/student';
 import { useAuth } from '../context/AuthContext';
-import { UnofficialDemoBadge } from '../components/Layout/UnofficialDemoBadge';
 
 export const StudentInfoPage: React.FC = () => {
-  const { updatePasswordDemo } = useAuth();
+  const { updatePassword } = useAuth();
 
   // Change Password Modal State
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -23,7 +22,7 @@ export const StudentInfoPage: React.FC = () => {
       return;
     }
 
-    const res = updatePasswordDemo(oldPassword, newPassword);
+    const res = updatePassword(oldPassword, newPassword);
     if (res.success) {
       setPasswordMsg({ type: 'success', text: res.message });
       setTimeout(() => {
@@ -40,9 +39,6 @@ export const StudentInfoPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top Banner Notice */}
-      <UnofficialDemoBadge variant="banner" />
-
       {/* Hero Banner (Matching Screenshot_5.png) */}
       <div className="bg-[#20406b] rounded-3xl p-6 md:p-8 text-white shadow-md flex items-center gap-6">
         {/* Large Circular Avatar with Initials */}
@@ -92,7 +88,6 @@ export const StudentInfoPage: React.FC = () => {
               <p className="text-sm font-mono font-semibold text-gray-800 mt-1">
                 {DEMO_STUDENT.nationalIdMasked}
               </p>
-              <span className="text-[10px] text-gray-400 font-sans block mt-0.5">Masked Demo Data</span>
             </div>
 
             <div>
@@ -195,7 +190,7 @@ export const StudentInfoPage: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-base font-bold text-gray-900">Change Password</h3>
-                <p className="text-xs text-gray-500">Update your student demo portal password</p>
+                <p className="text-xs text-gray-500">Update your student portal password</p>
               </div>
             </div>
 
@@ -223,7 +218,7 @@ export const StudentInfoPage: React.FC = () => {
                   type="password"
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
-                  placeholder="Enter current password (942250190)"
+                  placeholder="Enter current password"
                   required
                   className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#204d80] focus:ring-2 focus:ring-[#204d80]/15 outline-hidden text-sm"
                 />

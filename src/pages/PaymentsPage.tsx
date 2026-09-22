@@ -10,7 +10,6 @@ import {
 } from 'lucide-react';
 import { DEMO_FEES, PAYMENT_SUMMARY } from '../data/payments';
 import { FeeItem } from '../types/payments';
-import { UnofficialDemoBadge } from '../components/Layout/UnofficialDemoBadge';
 
 type PaymentTab = 'unpaid' | 'installments' | 'history' | 'all';
 
@@ -24,13 +23,13 @@ export const PaymentsPage: React.FC = () => {
   const unpaidFees = DEMO_FEES.filter((f) => f.status === 'Unpaid');
   const paidFees = DEMO_FEES.filter((f) => f.status === 'Paid');
 
-  // Handle Recheck Payments demo interaction
+  // Handle Recheck Payments interaction
   const handleRecheck = () => {
     setIsRechecking(true);
     setRecheckNotice(null);
     setTimeout(() => {
       setIsRechecking(false);
-      setRecheckNotice('Payment records verified. All local financial balances are up to date.');
+      setRecheckNotice('Payment records verified. All financial balances are up to date.');
       setTimeout(() => setRecheckNotice(null), 4000);
     }, 900);
   };
@@ -55,9 +54,6 @@ export const PaymentsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top Banner Notice */}
-      <UnofficialDemoBadge variant="banner" />
-
       {/* 4 Financial Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* TOTAL FEES */}

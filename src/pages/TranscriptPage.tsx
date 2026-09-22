@@ -15,7 +15,6 @@ import {
   GPA_SCALE_RULES,
   ACADEMIC_LEVELS
 } from '../data/transcript';
-import { UnofficialDemoBadge } from '../components/Layout/UnofficialDemoBadge';
 
 export const TranscriptPage: React.FC = () => {
   const { summary, termStats } = ACADEMIC_DATA;
@@ -26,9 +25,6 @@ export const TranscriptPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top Banner Notice */}
-      <UnofficialDemoBadge variant="banner" />
-
       {/* 4 Summary Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* 1. Cumulative GPA */}
@@ -318,11 +314,6 @@ export const TranscriptPage: React.FC = () => {
             </div>
           );
         })}
-      </div>
-
-      {/* Footnote UNOFFICIAL DEMO */}
-      <div className="pt-2">
-        <UnofficialDemoBadge variant="card" />
       </div>
     </div>
   );

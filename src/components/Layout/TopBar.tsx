@@ -3,7 +3,6 @@ import { Menu, Bell, ChevronDown, User, LogOut, ShieldAlert } from 'lucide-react
 import { DEMO_STUDENT } from '../../data/student';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { UnofficialDemoBadge } from './UnofficialDemoBadge';
 
 interface TopBarProps {
   title: string;
@@ -47,10 +46,6 @@ export const TopBar: React.FC<TopBarProps> = ({ title, onToggleSidebar }) => {
 
       {/* Right side: Actions, Badges & Profile */}
       <div className="flex items-center gap-2.5 sm:gap-4">
-        {/* Unofficial Demo Pill */}
-        <div className="hidden sm:block">
-          <UnofficialDemoBadge variant="topbar" />
-        </div>
 
         {/* Notifications Icon */}
         <div className="relative" ref={notifRef}>

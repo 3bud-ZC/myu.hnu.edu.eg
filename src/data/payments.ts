@@ -1,6 +1,6 @@
 import { FeeItem, PaymentSummary } from '../types/payments';
 
-export const DEMO_FEES: FeeItem[] = [
+export const STUDENT_FEES: FeeItem[] = [
   // 4 Unpaid Fees (matching Screenshot_4.png exactly)
   {
     id: 'fee-unpaid-1',
@@ -141,4 +141,5 @@ export function calculatePaymentSummary(fees: FeeItem[]): PaymentSummary {
   };
 }
 
-export const PAYMENT_SUMMARY = calculatePaymentSummary(DEMO_FEES);
+export const DEMO_FEES = STUDENT_FEES;
+export const PAYMENT_SUMMARY = calculatePaymentSummary(STUDENT_FEES);

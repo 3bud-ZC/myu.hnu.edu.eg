@@ -1,6 +1,6 @@
 import { StudentProfile } from '../types/student';
 
-export const DEMO_STUDENT: StudentProfile = {
+export const STUDENT_PROFILE: StudentProfile = {
   id: '942250190',
   username: '942250190',
   fullNameArabic: 'روناء حسن صفوت حسن محمد',
@@ -8,7 +8,7 @@ export const DEMO_STUDENT: StudentProfile = {
   firstName: 'روناء',
   middleName: 'حسن صفوت حسن',
   lastName: 'محمد',
-  nationalIdMasked: '********0206', // Protected demo masked format per safety instructions
+  nationalIdMasked: '********0206',
   gender: 'F',
   email: '-',
   phone: '-',
@@ -19,3 +19,6 @@ export const DEMO_STUDENT: StudentProfile = {
   lastLogin: '22 Sept 2026, 14:02',
   lastSynced: '22 Sept 2026, 14:02',
 };
+
+// Aliased for backward compatibility
+export const DEMO_STUDENT = STUDENT_PROFILE;

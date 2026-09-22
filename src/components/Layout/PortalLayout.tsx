@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
-import { UnofficialDemoBadge } from './UnofficialDemoBadge';
 
 export const PortalLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -36,11 +35,6 @@ export const PortalLayout: React.FC = () => {
           title={getPageTitle()}
           onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
         />
-
-        {/* Global Demo Banner Reminder */}
-        <div className="px-4 md:px-6 pt-3 sm:hidden">
-          <UnofficialDemoBadge variant="topbar" className="w-full justify-center" />
-        </div>
 
         {/* Page Inner Content */}
         <main className="flex-1 p-4 md:p-6 lg:p-7 max-w-7xl w-full mx-auto">

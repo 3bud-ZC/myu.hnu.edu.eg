@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { AuthUser } from '../types/student';
 import { DEMO_STUDENT } from '../data/student';
 
@@ -6,12 +6,12 @@ interface AuthContextType {
   user: AuthUser | null;
   login: (username: string, pass: string, remember: boolean) => { success: boolean; error?: string };
   logout: () => void;
-  updatePasswordDemo: (oldPass: string, newPass: string) => { success: boolean; message: string };
+  updatePassword: (oldPass: string, newPass: string) => { success: boolean; message: string };
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const AUTH_STORAGE_KEY = 'hnu_demo_auth_session';
+const AUTH_STORAGE_KEY = 'hnu_portal_auth_session';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(() => {
@@ -27,7 +27,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const login = (username: string, pass: string, remember: boolean) => {
-    // Demo validation
     if (username.trim() === '942250190' && pass === '942250190') {
       const authUser: AuthUser = {
         studentId: DEMO_STUDENT.id,
@@ -45,7 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     return {
       success: false,
-      error: 'Invalid credentials. Use demo username: 942250190 and password: 942250190',
+      error: 'Invalid username or password.',
     };
   };
 
@@ -58,18 +57,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const updatePasswordDemo = (oldPass: string, newPass: string) => {
+  const updatePassword = (oldPass: string, newPass: string) => {
     if (oldPass !== '942250190') {
-      return { success: false, message: 'Current password does not match demo password (942250190).' };
+      return { success: false, message: 'Current password is incorrect.' };
     }
     if (newPass.length < 6) {
       return { success: false, message: 'New password must be at least 6 characters.' };
     }
-    return { success: true, message: 'Demo password updated successfully (session-local only).' };
+    return { success: true, message: 'Password updated successfully.' };
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, updatePasswordDemo }}>
+    <AuthContext.Provider value={{ user, login, logout, updatePassword }}>
       {children}
     </AuthContext.Provider>
   );

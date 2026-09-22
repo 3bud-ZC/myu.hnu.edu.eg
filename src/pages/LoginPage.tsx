@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Lock, Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { User, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { UnofficialDemoBadge } from '../components/Layout/UnofficialDemoBadge';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('942250190');
-  const [password, setPassword] = useState('942250190');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,25 +24,14 @@ export const LoginPage: React.FC = () => {
       if (result.success) {
         navigate('/transcript');
       } else {
-        setError(result.error || 'Login failed');
+        setError(result.error || 'Invalid username or password');
         setIsLoading(false);
       }
     }, 300);
   };
 
-  const handleFillDemo = () => {
-    setUsername('942250190');
-    setPassword('942250190');
-    setError(null);
-  };
-
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-[#14233c] to-[#0d1829] flex flex-col items-center justify-center p-4 sm:p-6 relative">
-      {/* Top Demo Banner */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2">
-        <UnofficialDemoBadge variant="topbar" />
-      </div>
-
+    <div className="min-h-screen w-full bg-gradient-to-b from-[#14233c] to-[#0d1829] flex flex-col items-center justify-center p-4 sm:p-6">
       {/* Login Card Container */}
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-9 border border-slate-100 flex flex-col items-center">
         {/* HNU App Icon Logo */}
@@ -55,21 +43,6 @@ export const LoginPage: React.FC = () => {
         <h2 className="text-2xl font-bold text-gray-900 mt-5 tracking-tight">Welcome Back</h2>
         <p className="text-sm text-gray-500 mt-1">Sign in to your student portal</p>
 
-        {/* Demo Quick Notice */}
-        <div className="mt-4 w-full bg-[#f0f6ff] border border-[#d2e3fc] rounded-xl p-3 text-xs text-blue-900 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span>
-            <span>Demo: <strong>942250190</strong> / <strong>942250190</strong></span>
-          </div>
-          <button
-            type="button"
-            onClick={handleFillDemo}
-            className="text-[11px] font-semibold text-blue-700 hover:text-blue-900 underline ml-2"
-          >
-            Auto Fill
-          </button>
-        </div>
-
         {/* Error Alert */}
         {error && (
           <div className="mt-4 w-full p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-center gap-2">
@@ -79,7 +52,7 @@ export const LoginPage: React.FC = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="w-full mt-5 space-y-4">
+        <form onSubmit={handleSubmit} className="w-full mt-6 space-y-4">
           {/* Username */}
           <div>
             <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="username">
@@ -156,11 +129,6 @@ export const LoginPage: React.FC = () => {
           <p className="text-[11px] text-gray-400 mt-0.5">Student Information System</p>
         </div>
       </div>
-
-      {/* Safety Notice Footer */}
-      <p className="text-[11px] text-slate-400 mt-6 text-center max-w-sm">
-        Unofficial UI Demo for demonstration & portfolio purposes. Not an official portal.
-      </p>
     </div>
   );
 };
