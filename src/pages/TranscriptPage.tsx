@@ -6,11 +6,10 @@ import {
   TrendingUp,
   Info,
   ChevronRight,
-  ChevronDown,
-  AlertTriangle
+  ChevronDown
 } from 'lucide-react';
 import {
-  DEMO_TERMS,
+  STUDENT_TERMS,
   ACADEMIC_DATA,
   GPA_SCALE_RULES,
   ACADEMIC_LEVELS
@@ -22,6 +21,19 @@ export const TranscriptPage: React.FC = () => {
   // Toggle state for expandable sections
   const [scaleOpen, setScaleOpen] = useState(false);
   const [levelsOpen, setLevelsOpen] = useState(false);
+
+  const getGradeBadgeClass = (grade: string) => {
+    if (grade === 'F' || grade === 'FW') {
+      return 'bg-red-50 text-red-700 border border-red-200';
+    }
+    if (grade === 'D') {
+      return 'bg-amber-50 text-amber-700 border border-amber-200';
+    }
+    if (grade === 'C+' || grade === 'C') {
+      return 'bg-amber-50 text-amber-800 border border-amber-200';
+    }
+    return 'bg-emerald-50 text-emerald-800 border border-emerald-200';
+  };
 
   return (
     <div className="space-y-6">
@@ -184,7 +196,7 @@ export const TranscriptPage: React.FC = () => {
 
       {/* Term Blocks List */}
       <div className="space-y-5">
-        {DEMO_TERMS.map((term) => {
+        {STUDENT_TERMS.map((term) => {
           const stats = termStats[term.id];
 
           return (
@@ -230,7 +242,7 @@ export const TranscriptPage: React.FC = () => {
                   No grades available for this term.
                 </div>
               ) : (
-                /* Table matching Screenshot_2.png */
+                /* Table matching screenshots */
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
@@ -257,11 +269,6 @@ export const TranscriptPage: React.FC = () => {
                               <p className="text-[11px] text-gray-400 font-mono mt-0.5">
                                 {course.code}
                               </p>
-                              {course.notes && (
-                                <p className="text-[11px] text-red-500 font-arabic mt-0.5">
-                                  {course.notes}
-                                </p>
-                              )}
                             </td>
 
                             {/* Credit Hours */}
@@ -271,17 +278,15 @@ export const TranscriptPage: React.FC = () => {
 
                             {/* Marks */}
                             <td className="py-3 px-4 text-center font-medium text-gray-800">
-                              {course.marks !== null ? course.marks.toFixed(1) : '-'}
+                              {course.marks !== null ? course.marks.toFixed(1) : '–'}
                             </td>
 
                             {/* Grade pill */}
                             <td className="py-3 px-4 text-center">
                               <span
-                                className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
-                                  isFail
-                                    ? 'bg-red-50 text-red-700 border border-red-200'
-                                    : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                                }`}
+                                className={`inline-flex items-center justify-center min-w-[28px] h-7 px-1.5 rounded-full text-xs font-bold ${getGradeBadgeClass(
+                                  course.grade
+                                )}`}
                               >
                                 {course.grade}
                               </span>
@@ -289,26 +294,68 @@ export const TranscriptPage: React.FC = () => {
 
                             {/* Points */}
                             <td className="py-3 px-4 text-center font-mono font-medium text-gray-700">
-                              {course.points !== null && !isFail ? course.points.toFixed(1) : '–'}
+                              {course.points !== null && !isFail ? course.points.toFixed(2) : '–'}
                             </td>
 
-                            {/* Status */}
+                            {/* Status with optional note */}
                             <td className="py-3 px-5 text-right">
-                              <span
-                                className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                                  isFail
-                                    ? 'bg-red-50 text-red-700 border border-red-200'
-                                    : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                }`}
-                              >
-                                {course.status}
-                              </span>
+                              <div className="flex items-center justify-end gap-2.5">
+                                {course.notes && (
+                                  <span className="text-[11px] text-gray-500 font-arabic text-right">
+                                    {course.notes}
+                                  </span>
+                                )}
+                                <span
+                                  className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                                    isFail
+                                      ? 'bg-red-50 text-red-700 border border-red-200'
+                                      : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                  }`}
+                                >
+                                  {course.status}
+                                </span>
+                              </div>
                             </td>
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
+
+                  {/* Term Summary Strip Matching Institutional Screenshots */}
+                  {stats && (
+                    <div className="px-5 py-3 bg-gray-50/70 border-t border-gray-200 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+                      <div className="flex items-center gap-3">
+                        <span className="font-bold text-gray-500 uppercase tracking-wider font-sans text-[11px]">
+                          TERM
+                        </span>
+                        <span className="text-gray-600">
+                          GPA: <strong className="text-gray-900 font-bold">{stats.termGpa.toFixed(2)}</strong>
+                        </span>
+                        <span className="text-gray-600">
+                          Hrs: <strong className="text-gray-900 font-bold">{stats.earnedHours}/{stats.attemptedHours}</strong>
+                        </span>
+                        <span className="text-gray-600">
+                          Points: <strong className="text-gray-900 font-bold">{stats.qualityPoints.toFixed(2)}</strong>
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className="font-bold text-[#1d3557] uppercase tracking-wider font-sans text-[11px]">
+                          CUMULATIVE
+                        </span>
+                        <span className="text-gray-600">
+                          CGPA: <strong className="text-[#d32f2f] font-bold">{stats.cumulativeGpaAtTerm.toFixed(2)}</strong>
+                        </span>
+                        <span className="text-gray-600">
+                          Hrs: <strong className="text-gray-900 font-bold">{stats.cumulativeEarnedAtTerm}</strong>
+                        </span>
+                        <span className="text-gray-600">
+                          Level: <strong className="text-gray-900 font-bold">1</strong>
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

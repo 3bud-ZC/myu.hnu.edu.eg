@@ -6,9 +6,9 @@ export const GPA_SCALE_RULES = [
   { grade: 'B+', minMark: 80, maxMark: 84, points: 3.30, description: 'Very Good' },
   { grade: 'B', minMark: 75, maxMark: 79, points: 3.00, description: 'Good' },
   { grade: 'B-', minMark: 70, maxMark: 74, points: 2.70, description: 'Good' },
-  { grade: 'C+', minMark: 65, maxMark: 69, points: 2.30, description: 'Satisfactory' },
+  { grade: 'C+', minMark: 65, maxMark: 69, points: 2.80, description: 'Satisfactory' },
   { grade: 'C', minMark: 60, maxMark: 64, points: 2.00, description: 'Pass' },
-  { grade: 'D', minMark: 50, maxMark: 59, points: 1.00, description: 'Conditional Pass' },
+  { grade: 'D', minMark: 50, maxMark: 59, points: 2.00, description: 'Conditional Pass' },
   { grade: 'F', minMark: 0, maxMark: 49, points: 0.00, description: 'Fail' },
 ];
 
@@ -37,27 +37,27 @@ export const STUDENT_TERMS: TermRecord[] = [
         code: 'THS1110',
         name: 'Professional ethics',
         creditHours: 1,
-        marks: 75.0,
-        grade: 'B',
-        points: 3.0,
+        marks: 88.0,
+        grade: 'A-',
+        points: 3.70,
         status: 'Pass',
       },
       {
         code: 'THS115',
         name: 'Electronic circuits & devices',
         creditHours: 3,
-        marks: 69.0,
-        grade: 'C+',
-        points: 2.4,
+        marks: 85.0,
+        grade: 'A-',
+        points: 3.70,
         status: 'Pass',
       },
       {
         code: 'THS116',
         name: 'General anatomy & histology for technologists',
         creditHours: 3,
-        marks: 74.0,
-        grade: 'B-',
-        points: 2.7,
+        marks: 84.0,
+        grade: 'B+',
+        points: 3.30,
         status: 'Pass',
       },
       {
@@ -82,27 +82,27 @@ export const STUDENT_TERMS: TermRecord[] = [
         code: 'THS119',
         name: 'General Chemistry',
         creditHours: 2,
-        marks: 72.0,
-        grade: 'B-',
-        points: 2.7,
+        marks: 86.0,
+        grade: 'A-',
+        points: 3.70,
         status: 'Pass',
       },
       {
         code: 'UN114',
         name: 'Academic reading & writing (2)',
         creditHours: 2,
-        marks: 77.0,
-        grade: 'B',
-        points: 3.0,
+        marks: 87.0,
+        grade: 'A-',
+        points: 3.70,
         status: 'Pass',
       },
       {
         code: 'UN30',
         name: 'Social Issues',
         creditHours: 2,
-        marks: 78.0,
-        grade: 'B',
-        points: 3.0,
+        marks: 85.0,
+        grade: 'A-',
+        points: 3.65,
         status: 'Pass',
       },
     ],
@@ -118,26 +118,27 @@ export const STUDENT_TERMS: TermRecord[] = [
         name: 'Basic physics',
         creditHours: 2,
         marks: 51.0,
-        grade: 'D',
-        points: 1.0,
-        status: 'Pass',
+        grade: 'F',
+        points: 0.0,
+        status: 'Fail',
       },
       {
         code: 'THS102',
         name: 'Mathematics',
         creditHours: 2,
         marks: null,
-        grade: 'B',
-        points: 3.0,
-        status: 'Pass',
+        grade: 'FW',
+        points: 0.0,
+        status: 'Fail',
+        notes: 'أقل من 30 (18.75%) Written: رسوب جزئي',
       },
       {
         code: 'THS103',
         name: 'Introduction to electrical engineering',
         creditHours: 3,
         marks: 110.0,
-        grade: 'B-',
-        points: 2.7,
+        grade: 'C+',
+        points: 2.80,
         status: 'Pass',
       },
       {
@@ -145,17 +146,17 @@ export const STUDENT_TERMS: TermRecord[] = [
         name: 'Mechanics',
         creditHours: 2,
         marks: 44.0,
-        grade: 'D',
-        points: 1.0,
-        status: 'Pass',
+        grade: 'F',
+        points: 0.0,
+        status: 'Fail',
       },
       {
         code: 'UN101',
         name: 'Academic reading & writing (1)',
         creditHours: 2,
         marks: 58.0,
-        grade: 'C',
-        points: 2.0,
+        grade: 'D',
+        points: 2.00,
         status: 'Pass',
       },
       {
@@ -163,8 +164,8 @@ export const STUDENT_TERMS: TermRecord[] = [
         name: 'Computer skills',
         creditHours: 2,
         marks: 59.0,
-        grade: 'C+',
-        points: 2.4,
+        grade: 'D',
+        points: 2.00,
         status: 'Pass',
       },
       {
@@ -172,8 +173,8 @@ export const STUDENT_TERMS: TermRecord[] = [
         name: 'Critical thinking',
         creditHours: 2,
         marks: 60.0,
-        grade: 'C+',
-        points: 2.3,
+        grade: 'D',
+        points: 2.00,
         status: 'Pass',
       },
     ],
@@ -182,22 +183,44 @@ export const STUDENT_TERMS: TermRecord[] = [
 
 export const DEMO_TERMS = STUDENT_TERMS;
 
+export interface TermStatistics {
+  termGpa: number;
+  earnedHours: number;
+  attemptedHours: number;
+  qualityPoints: number;
+  cumulativeGpaAtTerm: number;
+  cumulativeEarnedAtTerm: number;
+}
+
 /**
  * Calculates GPA and summaries strictly from the local course data.
  */
 export function calculateAcademicSummary(terms: TermRecord[]): {
   summary: TranscriptSummary;
-  termStats: Record<string, { termGpa: number; earnedHours: number; attemptedHours: number }>;
+  termStats: Record<string, TermStatistics>;
 } {
   let totalQualityPoints = 0;
   let totalAttemptedGpaHours = 0;
   let totalEarnedHours = 0;
 
-  const termStats: Record<string, { termGpa: number; earnedHours: number; attemptedHours: number }> = {};
+  const termStats: Record<string, TermStatistics> = {};
 
-  terms.forEach((term) => {
+  // Compute from chronological order: Fall 2025 -> Spring 2025 -> Fall 2026
+  const chronological = [...terms].reverse();
+  let runningQP = 0;
+  let runningAttempted = 0;
+  let runningEarned = 0;
+
+  chronological.forEach((term) => {
     if (term.status !== 'Posted' || term.courses.length === 0) {
-      termStats[term.id] = { termGpa: 0, earnedHours: 0, attemptedHours: 0 };
+      termStats[term.id] = {
+        termGpa: 0,
+        earnedHours: 0,
+        attemptedHours: 0,
+        qualityPoints: 0,
+        cumulativeGpaAtTerm: runningAttempted > 0 ? Number((runningQP / runningAttempted).toFixed(2)) : 0,
+        cumulativeEarnedAtTerm: runningEarned,
+      };
       return;
     }
 
@@ -208,18 +231,25 @@ export function calculateAcademicSummary(terms: TermRecord[]): {
     term.courses.forEach((c) => {
       termAttempted += c.creditHours;
       const pts = c.points ?? 0;
-      termQP += pts * c.creditHours;
-
       if (c.status === 'Pass') {
+        termQP += pts * c.creditHours;
         termEarned += c.creditHours;
       }
     });
 
     const termGpa = termAttempted > 0 ? Number((termQP / termAttempted).toFixed(2)) : 0;
+
+    runningQP += termQP;
+    runningAttempted += termAttempted;
+    runningEarned += termEarned;
+
     termStats[term.id] = {
       termGpa,
       earnedHours: termEarned,
       attemptedHours: termAttempted,
+      qualityPoints: Number(termQP.toFixed(2)),
+      cumulativeGpaAtTerm: Number((runningQP / runningAttempted).toFixed(2)),
+      cumulativeEarnedAtTerm: runningEarned,
     };
 
     totalQualityPoints += termQP;
@@ -253,7 +283,7 @@ export function calculateAcademicSummary(terms: TermRecord[]): {
       earnedHours: totalEarnedHours,
       attemptedHours: totalAttemptedGpaHours,
       level,
-      totalQualityPoints,
+      totalQualityPoints: Number(totalQualityPoints.toFixed(2)),
     },
     termStats,
   };
